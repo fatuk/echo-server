@@ -1,14 +1,12 @@
-const http = require('http');
-const url = require('url');
-const port = 80;
-const requestHandler = (request, response) => {
-  const url_parts = url.parse(request.url, true);
-  response.end(`Hello ${url_parts.query.name}`);
-}
-const server = http.createServer(requestHandler)
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err);
-  }
-  console.log(`server is listening on ${port}`);
-})
+var express = require('express');
+var app = express();
+var index = require('./routes/index');
+var port = process.env.PORT || 8080;
+
+app.use('/', index);
+
+app.listen(port, function() {
+	console.log('App is listening to ' + port + ' port');
+});
+
+module.exports = app;
